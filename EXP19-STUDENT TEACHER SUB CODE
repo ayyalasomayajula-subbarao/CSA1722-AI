@@ -1,0 +1,52 @@
+student(john).
+student(lisa).
+student(alex).
+% Facts representing the relationships
+teaches(teacher(jones), subject(math), code(mth101)).
+teaches(teacher(smith), subject(physics), code(ph101)).
+teaches(teacher(davis), subject(computer_science), code(cs201)).
+
+teacher(prof_smith).
+teacher(prof_jones).
+teacher(prof_doe).
+enrolled(student(alice), subject(math), code(mth101)).
+enrolled(student(bob), subject(physics), code(ph101)).
+enrolled(student(charlie), subject(computer_science), code(cs201)).
+enrolled(student(diana), subject(math), code(mth101)).
+
+subject(math).
+subject(physics).
+subject(chemistry).
+% Query to find the teacher of a specific subject
+teacher_of_subject(Subject, Teacher) :-
+    teaches(Teacher, Subject, _).
+
+course_code(math, m101).
+course_code(physics, p201).
+course_code(chemistry, c301).
+% Query to find students enrolled in a specific subject
+students_in_subject(Subject, Students) :-
+    enrolled(Students, Subject, _).
+
+teaches(prof_smith, math).
+teaches(prof_jones, physics).
+teaches(prof_doe, chemistry).
+% Query to find the subject code for a given subject
+subject_code(Subject, Code) :-
+    teaches(_, Subject, Code).
+enrolled(_, Subject, Code) :-
+    teaches(_, Subject, Code).
+
+enrolled_in(john, math).
+enrolled_in(john, physics).
+enrolled_in(lisa, physics).
+enrolled_in(alex, chemistry).
+% Example queries
+% Who teaches the subject "physics"?
+% ?- teacher_of_subject(subject(physics), Teacher).
+%
+% Which students are enrolled in the subject "math"?
+% ?- students_in_subject(subject(math), Students).
+%
+% What is the code for the subject "computer_science"?
+% ?- subject_code(subject(computer_science), Code).
